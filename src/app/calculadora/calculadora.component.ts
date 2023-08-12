@@ -13,7 +13,7 @@ export class CalculadoraComponent {
 
     ingresarElemento(numero:string) {
 
-      if(numero === '*' || numero === '/' || numero === '+' || numero === '-'){
+      if(numero === '*' || numero === '/' || numero === '+' || numero === '-' || numero === '.'){
         this.esSimbolo++;
       } else {
         this.esSimbolo=0;
