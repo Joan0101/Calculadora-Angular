@@ -14,7 +14,7 @@ export class CalculadoraComponent {
 
     ingresoPunto(){
 
-
+      /*  */
       let flag:boolean=false;
       let esPunto:number=0;
 
@@ -32,7 +32,9 @@ export class CalculadoraComponent {
     ingresarElemento(numero:string) {
 
 
-
+      /* La validacion de simbolo debera de incluirse en el metodo validar simbolo. Se excluye de
+      ingresarElemento() y dentro de la validacion "ths.simbolo<2" se ejecuta el metodo validarSimbolo()
+      que retornara un true o false. En valirdar simbolo se crearan las variables necesarias con let (esSimbolo)*/
       
 
       if(numero === '*' || numero === '/' || numero === '+' || numero === '-'){ 
