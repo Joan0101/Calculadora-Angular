@@ -14,14 +14,15 @@ export class CalculadoraComponent {
 
     ingresoPunto(){
 
-      /*  */
+      /* esta funcion retorna booleano flag permitiendo en casod e que sea true 
+      el ingreso al string de un "." */
       let flag:boolean=false;
       let esPunto:number=0;
 
-      if(this.operacionEntrada===null){
+      if(this.operacionEntrada===null){ // Si el elemento previo al "." es null o un SIMBOLO la funcion retorna false.
         flag=false;
       } else {
-        if(this.operacionEntrada[this.operacionEntrada.length] ){
+        if(this.operacionEntrada[this.operacionEntrada.length] ){ // se validaria con el uso de validarSimbolo() si lo ultimo ingresado en la calculadora es numerico o simbolo.
 
         }
       }
