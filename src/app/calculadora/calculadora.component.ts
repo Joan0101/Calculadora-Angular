@@ -9,17 +9,40 @@ export class CalculadoraComponent {
 
   operacionEntrada:string = "";
   esSimbolo:number = 0;
+  
   resultado:number = 0;
 
+    ingresoPunto(){
+
+
+      let flag:boolean=false;
+      let esPunto:number=0;
+
+      if(this.operacionEntrada===null){
+        flag=false;
+      } else {
+        if(this.operacionEntrada[this.operacionEntrada.length] ){
+
+        }
+      }
+    }
+    validarSimbolo(){
+
+    }
     ingresarElemento(numero:string) {
 
-      if(numero === '*' || numero === '/' || numero === '+' || numero === '-' || numero === '.'){
+
+
+      
+
+      if(numero === '*' || numero === '/' || numero === '+' || numero === '-'){ 
         this.esSimbolo++;
+        
       } else {
         this.esSimbolo=0;
       }
 
-      if(this.esSimbolo < 2){
+      if(this.esSimbolo < 2 ){
         this.operacionEntrada += numero;
         this.resultado=eval(this.operacionEntrada);
       }
