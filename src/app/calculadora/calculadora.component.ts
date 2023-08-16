@@ -8,36 +8,18 @@ import { Component } from '@angular/core';
 export class CalculadoraComponent {
 
   operacionEntrada:string = "";
-  esSimbolo:number = 0;
-  
   resultado:number = 0;
+  esSimbolo:number = 0;
+  esPunto:number=0;
 
-    ingresoPunto(){
+    
 
-      /* esta funcion retorna booleano flag permitiendo en casod e que sea true 
-      el ingreso al string de un "." */
-      let flag:boolean=false;
-      let esPunto:number=0;
-
-      if(this.operacionEntrada===null){ // Si el elemento previo al "." es null o un SIMBOLO la funcion retorna false.
-        flag=false;
-      } else {
-        if(this.operacionEntrada[this.operacionEntrada.length] ){ // se validaria con el uso de validarSimbolo() si lo ultimo ingresado en la calculadora es numerico o simbolo.
-
-        }
-      }
-    }
-    validarSimbolo(){
+    validarPunto(number:string){
 
     }
-    ingresarElemento(numero:string) {
 
-
-      /* La validacion de simbolo debera de incluirse en el metodo validar simbolo. Se excluye de
-      ingresarElemento() y dentro de la validacion "ths.simbolo<2" se ejecuta el metodo validarSimbolo()
-      que retornara un true o false. En valirdar simbolo se crearan las variables necesarias con let (esSimbolo)*/
-      
-
+    validarSimbolo(numero:string){ // Valida si se puede ingresar simbolo o no
+       
       if(numero === '*' || numero === '/' || numero === '+' || numero === '-'){ 
         this.esSimbolo++;
         
@@ -46,6 +28,36 @@ export class CalculadoraComponent {
       }
 
       if(this.esSimbolo < 2 ){
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    ingresoPunto(){ // operacionEntrada += "."
+
+      /* esta funcion retorna booleano flag permitiendo en casod e que sea true 
+      el ingreso al string de un "." */
+      let flag:boolean=false;
+      
+      if(this.operacionEntrada===null){ // Si el elemento previo al "." es null o un SIMBOLO la funcion retorna false.
+        flag=false;
+      } else {
+        if(this.validarSimbolo(this.operacionEntrada[this.operacionEntrada.length-1] || )){ // se validaria con el uso de validarSimbolo() si lo ultimo ingresado en la calculadora es numerico o simbolo.
+          flag=false;
+          /* probar metodo endsWith en la validacion y ver si funciona */
+        }
+      }
+    }
+
+    ingresarElemento(numero:string) {
+
+      /* La validacion de simbolo debera de incluirse en el metodo validar simbolo. Se excluye de
+      ingresarElemento() y dentro de la validacion "ths.simbolo<2" se ejecuta el metodo validarSimbolo()
+      que retornara un true o false. En valirdar simbolo se crearan las variables necesarias con let (esSimbolo)*/
+
+      if(this.validarSimbolo(numero)  ){ // se podria hacer una validacion bilateral de punto y simbolo &&
+      
         this.operacionEntrada += numero;
         this.resultado=eval(this.operacionEntrada);
       }
