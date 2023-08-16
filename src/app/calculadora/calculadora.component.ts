@@ -10,19 +10,32 @@ export class CalculadoraComponent {
   operacionEntrada:string = "";
   resultado:number = 0;
   esSimbolo:number = 0;
-  esPunto:number=0;
+  esPunto:number = 0;
 
 
 
     validarPunto(number:string){
 
+      if(this.operacionEntrada===""){
+        this.esPunto++;
+      } else {
+        if(this.esSimbolo===0){
+          this.esPunto=0;
+        }
+      }
+
+      if(this.esPunto < 2 ){
+        return true;
+      } else {
+        return false;
+      }
+
     }
 
-    validarSimbolo(numero:string){ // Valida si se puede ingresar simbolo o no
+    validarSimbolo(elemento:string){ // Valida si se puede ingresar simbolo o no
 
-      if(numero === '*' || numero === '/' || numero === '+' || numero === '-'){
+      if(elemento === '*' || elemento === '/' || elemento === '+' || elemento === '-'){
         this.esSimbolo++;
-
       } else {
         this.esSimbolo=0;
       }
@@ -34,33 +47,17 @@ export class CalculadoraComponent {
       }
     }
 
-    ingresoPunto(){ // operacionEntrada += "."
+    ingresarElemento(elemento:string) {
 
-      /* esta funcion retorna booleano flag permitiendo en casod e que sea true
-      el ingreso al string de un "." */
-      let flag:boolean=false;
+      if(this.validarSimbolo(elemento)){ // se podria hacer una validacion bilateral de punto y simbolo &&
+         // se podria hacer una validacion bilateral de punto y simbolo &&
 
-      if(this.operacionEntrada===null){ // Si el elemento previo al "." es null o un SIMBOLO la funcion retorna false.
-        flag=false;
-      } else {
-        if(this.validarSimbolo(this.operacionEntrada[this.operacionEntrada.length-1] )){ // se validaria con el uso de validarSimbolo() si lo ultimo ingresado en la calculadora es numerico o simbolo.
-          flag=false;
-          /* probar metodo endsWith en la validacion y ver si funciona */
-        }
+          this.operacionEntrada += elemento;
+          this.resultado=eval(this.operacionEntrada);
+
+
       }
-    }
 
-    ingresarElemento(numero:string) {
-
-      /* La validacion de simbolo debera de incluirse en el metodo validar simbolo. Se excluye de
-      ingresarElemento() y dentro de la validacion "ths.simbolo<2" se ejecuta el metodo validarSimbolo()
-      que retornara un true o false. En valirdar simbolo se crearan las variables necesarias con let (esSimbolo)*/
-
-      if(this.validarSimbolo(numero)  ){ // se podria hacer una validacion bilateral de punto y simbolo &&
-
-        this.operacionEntrada += numero;
-        this.resultado=eval(this.operacionEntrada);
-      }
   }
 
     borrarElemento(){
@@ -68,8 +65,8 @@ export class CalculadoraComponent {
     }
 
 /* Si no existiese eval() yo lo que haria seria un sistema que recorra el string y cuando se tope con un operador analice si es un * / o un suma y resta.
-Una vez se encuentre con x simbolo, guardaria todo lo anterior al simbolo en un array de numeros.Si fuese multiplicacion o division , multiplicaria o
-dividiria el numero guardado dentro del array con el numero a la derecha del simbolo. Seguiria acumulandose eso en la posicion 0 del array hasta
+Una vez se encuentre con x simbolo, guardaria todo lo anterior al simbolo en un array de elementos.Si fuese multiplicacion o division , multiplicaria o
+dividiria el elemento guardado dentro del array con el elemento a la derecha del simbolo. Seguiria acumulandose eso en la posicion 0 del array hasta
 que se encuentre una suma o resta. En este caso crearia un elemento que me permita guardar el orden de las operaciones de suma y resta. Asi saber
 si primero es resta o despues suma y continuando. Luego de esto, pasaria a un bloque siguiente donde todo lo siguiente del simbolo entraria en la siguiente
 posicion del array numerico, sea [1], hasta toparnos con otra suma o resta, se guardaria el orden de suma o resta y asi sucesivamente.
@@ -85,14 +82,14 @@ resultado -= arr[i];
 
 
 Este seria el supuesto codigo bien hecho:
-const arrNumeros = [4,3,4];
+const arrelementos = [4,3,4];
 const orden = ["-","-","+",];
 let resultado=0;
-for(let i=0;i<arrNumeros.length;i++){
+for(let i=0;i<arrelementos.length;i++){
     if(orden[i]==="+"){
-    resultado += arrNumeros[i];
+    resultado += arrelementos[i];
     }else{
-    resultado -= arrNumeros[i];
+    resultado -= arrelementos[i];
     }
 
 }
