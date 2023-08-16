@@ -17,16 +17,19 @@ export class CalculadoraComponent {
 
     ingresarPunto(elemento:string){
 
-      if(this.operacionEntrada==="" || this.esSimbolo>0){
-        /* No es tan complicado, tengo que hacer lo mismo que hice con los simbolos solo que con las siguientes restricciones:
+      /*
+        No es tan complicado, tengo que hacer lo mismo que hice con los simbolos solo que con las siguientes restricciones:
         1. No puedo ingresar . con nada en string
         2. No puedo ingresar si ya se ingreso otro . y no se puso otro simbolo, ademas, si borro el simbolo, no puedo remplazarlo por un "."
         tiene que ingresarse otro numero para que recien ahi pueda hacerlo, ademas, si borro ese numero y simbolo, se reinicia la autorizacion.
         Es decir, solo puedo ingresar 1 vez punto despues de un simbolo
+        Si este metodo normal no funciona, peudo ir por la fuerza escaneando todo el string y tirandome true si detecta MAS de un "." entre 2 simbolos
+      */
 
-        Si este metodo normal no funciona, peudo ir por la fuerza escaneando todo el string y tirandome true si detecta MAS de un "." entre 2 simbolos*/
+      if(this.esSimbolo>0){
+
         this.esPunto++;
-      } else {
+        }else{
         if(this.esSimbolo===0){
           this.esPunto=0;
         }else{
@@ -34,19 +37,16 @@ export class CalculadoraComponent {
         }
       }
 
-      if(this.esPunto < 2 && this.operacionEntrada!==""){
+      if(this.esPunto < 2 && this.esSimbolo===0 && this.operacionEntrada!==""){
         this.operacionEntrada += elemento;
         this.resultado=eval(this.operacionEntrada);
       }
-
     }
 
     ingresarSimbolo(elemento:string){ // Valida si se puede ingresar simbolo o no
 
-      if(elemento === '*' || elemento === '/' || elemento === '+' || elemento === '-'){
-        this.esSimbolo++;
-        this.simboloFlag = true;
-      }
+      this.esSimbolo++;
+      this.simboloFlag = true;
 
       if(this.esSimbolo < 2 && this.operacionEntrada!==""){
         this.operacionEntrada += elemento;
@@ -58,7 +58,7 @@ export class CalculadoraComponent {
       this.operacionEntrada += elemento;
       this.resultado=eval(this.operacionEntrada);
       this.esSimbolo=0;
-  }
+    }
 
     igual(){
       this.resultado=eval(this.operacionEntrada);
