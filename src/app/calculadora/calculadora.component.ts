@@ -6,15 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./calculadora.component.css']
 })
 export class CalculadoraComponent {
-
   operacionEntrada:string = "";
+
+  resultados = [0];
   resultado:number = 0;
   esSimbolo:number = 0;
+  simboloFlag:boolean = false;
   esPunto:number = 0;
 
-
-
-    validarPunto(number:string){
+    ingresarPunto(number:string){
 
       if(this.operacionEntrada===""){
         this.esPunto++;
@@ -32,36 +32,38 @@ export class CalculadoraComponent {
 
     }
 
-    validarSimbolo(elemento:string){ // Valida si se puede ingresar simbolo o no
+    ingresarSimbolo(elemento:string){ // Valida si se puede ingresar simbolo o no
 
       if(elemento === '*' || elemento === '/' || elemento === '+' || elemento === '-'){
         this.esSimbolo++;
-      } else {
-        this.esSimbolo=0;
+        this.simboloFlag = true;
       }
 
-      if(this.esSimbolo < 2 ){
-        return true;
-      } else {
-        return false;
+      if(this.esSimbolo < 2 && this.operacionEntrada!==""){
+        this.operacionEntrada += elemento;
+        this.resultado=eval(this.operacionEntrada);
       }
     }
 
-    ingresarElemento(elemento:string) {
-
-      if(this.validarSimbolo(elemento)){ // se podria hacer una validacion bilateral de punto y simbolo &&
-         // se podria hacer una validacion bilateral de punto y simbolo &&
-
-          this.operacionEntrada += elemento;
-          this.resultado=eval(this.operacionEntrada);
-
-
-      }
-
+    ingresarNumero(elemento:string) {
+      this.operacionEntrada += elemento;
+      this.resultado=eval(this.operacionEntrada);
+      this.esSimbolo=0;
   }
 
+    igual(){
+      this.resultado=eval(this.operacionEntrada);
+      this.resultados.push(this.resultado);
+
+    }
     borrarElemento(){
       this.operacionEntrada = this.operacionEntrada.slice(0, -1);
+      if(this.simboloFlag===true){
+        this.esSimbolo=0;
+      }
+    }
+    borrarTodo(){
+      this.operacionEntrada = "";
     }
 
 /* Si no existiese eval() yo lo que haria seria un sistema que recorra el string y cuando se tope con un operador analice si es un * / o un suma y resta.

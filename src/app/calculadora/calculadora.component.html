@@ -1,23 +1,33 @@
-
+<span></span>
 <h1>{{operacionEntrada}}</h1>
-<div class="grillo">
-    <button (click)="ingresarElemento('1')" > 1 </button>
-    <button (click)="ingresarElemento('2')" > 2 </button>
-    <button (click)="ingresarElemento('3')" > 3 </button>
-    <button (click)="ingresarElemento('+')" > + </button>
-    <button (click)="ingresarElemento('4')" > 4 </button>
-    <button (click)="ingresarElemento('5')" > 5 </button>
-    <button (click)="ingresarElemento('6')" > 6 </button>
-    <button (click)="ingresarElemento('-')" > - </button>
-    <button (click)="ingresarElemento('7')" > 7 </button>
-    <button (click)="ingresarElemento('8')" > 8 </button>
-    <button (click)="ingresarElemento('9')" > 9 </button>
-    <button (click)="ingresarElemento('*')" > * </button>
-    <span></span>
-    <button (click)="ingresarElemento('0')" > 0 </button>
-    <button (click)="ingresarElemento('.')" > . </button>
+  <div class="cabecera">
+    <button (click)="borrarTodo()" class="C" > C </button>
     <button (click)="borrarElemento()" class="X"> X </button>
-    <button (click)="ingresarElemento('/')" > / </button>
+  </div>
+
+  <div class="grillo">
+    <button (click)="ingresarNumero('9')" > % </button>
+    <button (click)="ingresarNumero('')" > ^ </button>
+    <button (click)="ingresarNumero('')" > # </button>
+    <button (click)="ingresarSimbolo('/')" > / </button>
+    <button (click)="ingresarNumero('7')" > 7 </button>
+    <button (click)="ingresarNumero('8')" > 8 </button>
+    <button (click)="ingresarNumero('9')" > 9 </button>
+    <button (click)="ingresarSimbolo('*')" > * </button>
+    <button (click)="ingresarNumero('4')" > 4 </button>
+    <button (click)="ingresarNumero('5')" > 5 </button>
+    <button (click)="ingresarNumero('6')" > 6 </button>
+    <button (click)="ingresarSimbolo('-')" > - </button>
+    <button (click)="ingresarNumero('1')" > 1 </button>
+    <button (click)="ingresarNumero('2')" > 2 </button>
+    <button (click)="ingresarNumero('3')" > 3 </button>
+    <button (click)="ingresarSimbolo('+')" > + </button>
+    <button (click)="ingresarNumero('0')" > 0 </button>
+    <button (click)="ingresarNumero('.')" > . </button>
+    <button (click)="ingresarNumero('')" > () </button>
+    <button (click)="igual()" > = </button>
+
 </div>
 
 <h2>{{resultado}}</h2>
+
