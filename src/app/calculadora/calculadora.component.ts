@@ -13,21 +13,30 @@ export class CalculadoraComponent {
   esSimbolo:number = 0;
   simboloFlag:boolean = false;
   esPunto:number = 0;
+  puntoFlag:boolean = false;
 
-    ingresarPunto(number:string){
+    ingresarPunto(elemento:string){
 
-      if(this.operacionEntrada===""){
+      if(this.operacionEntrada==="" || this.esSimbolo>0){
+        /* No es tan complicado, tengo que hacer lo mismo que hice con los simbolos solo que con las siguientes restricciones:
+        1. No puedo ingresar . con nada en string
+        2. No puedo ingresar si ya se ingreso otro . y no se puso otro simbolo, ademas, si borro el simbolo, no puedo remplazarlo por un "."
+        tiene que ingresarse otro numero para que recien ahi pueda hacerlo, ademas, si borro ese numero y simbolo, se reinicia la autorizacion.
+        Es decir, solo puedo ingresar 1 vez punto despues de un simbolo
+
+        Si este metodo normal no funciona, peudo ir por la fuerza escaneando todo el string y tirandome true si detecta MAS de un "." entre 2 simbolos*/
         this.esPunto++;
       } else {
         if(this.esSimbolo===0){
           this.esPunto=0;
+        }else{
+          this.esPunto++;
         }
       }
 
-      if(this.esPunto < 2 ){
-        return true;
-      } else {
-        return false;
+      if(this.esPunto < 2 && this.operacionEntrada!==""){
+        this.operacionEntrada += elemento;
+        this.resultado=eval(this.operacionEntrada);
       }
 
     }
@@ -58,7 +67,7 @@ export class CalculadoraComponent {
     }
     borrarElemento(){
       this.operacionEntrada = this.operacionEntrada.slice(0, -1);
-      if(this.simboloFlag===true){
+      if(this.simboloFlag===true || this.puntoFlag===true){
         this.esSimbolo=0;
       }
     }
