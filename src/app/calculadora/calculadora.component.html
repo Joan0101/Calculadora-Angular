@@ -26,8 +26,11 @@
     <button (click)="ingresarPunto('.')" > . </button>
     <button (click)="ingresarNumero('')" > () </button>
     <button (click)="igual()" > = </button>
+    <audio #ref src="./assets/nastypaty.mp3"></audio>
+    <button (click)="ref.play()">💩</button>
+
 
 </div>
 
 <h2>{{resultado}}</h2>
-
+<h2>{{lastChar}}</h2>
