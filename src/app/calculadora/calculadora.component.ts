@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./calculadora.component.css']
 })
 export class CalculadoraComponent {
-  operacionEntrada:string = "";
+  operacionEntrada:string = " ";
 
   resultados = [0];
   lastChar:string = "";
@@ -15,24 +15,27 @@ export class CalculadoraComponent {
   esSimbolo:boolean = false;
   esPunto:boolean = false;
   nuevoPunto:boolean = false;
-
+  auxiliarPunto:boolean=false;
 
   ingresarPunto(elemento:string){
 
     if(this.esPunto===false && this.esSimbolo===false && this.operacionEntrada!==""){
       this.esPunto=true;
       this.operacionEntrada += elemento;
+      this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
       this.resultado=eval(this.operacionEntrada);
     }
+
   }
 
   ingresarSimbolo(elemento:string){
 
-    if(this.esSimbolo === false && this.esPunto === false && this.operacionEntrada!=="" && this.lastCharValidacion() ===false){
+    if(this.esSimbolo === false && this.esPunto === false && this.operacionEntrada!=="" && this.lastCharValidacion() === false && this.lastChar !== "."){
 
       this.esSimbolo=true;
-      this.esPunto=false;
+
       this.operacionEntrada += elemento;
+      this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
       this.resultado=eval(this.operacionEntrada);
 
     }
@@ -40,19 +43,24 @@ export class CalculadoraComponent {
 
   ingresarNumero(elemento:string) {
     this.operacionEntrada += elemento;
+    this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
     this.resultado=eval(this.operacionEntrada);
     this.esSimbolo=false;
   }
 
   borrarElemento(){
-    this.lastChar = this.operacionEntrada.slice(this.operacionEntrada.length-1 , this.operacionEntrada.length);
-    this.operacionEntrada = this.operacionEntrada.slice(0, -1);
     if(this.lastCharValidacion()){
       this.esSimbolo=false;
+
     }
     if(this.lastChar ===  "."){
       this.esPunto = false;
+
     }
+    this.operacionEntrada = this.operacionEntrada.slice(0, -1);
+    this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
+
+
   }
 
   igual(){
