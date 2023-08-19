@@ -14,12 +14,10 @@ export class CalculadoraComponent {
   resultado:number = 0;
   esSimbolo:boolean = false;
   esPunto:boolean = false;
-  nuevoPunto:boolean = false;
-  auxiliarPunto:boolean=false;
 
   ingresarPunto(elemento:string){
 
-    if(this.esPunto===false && this.esSimbolo===false && this.operacionEntrada!==""){
+    if(this.esPunto===false){
       this.esPunto=true;
       this.operacionEntrada += elemento;
       this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
@@ -30,10 +28,10 @@ export class CalculadoraComponent {
 
   ingresarSimbolo(elemento:string){
 
-    if(this.esSimbolo === false && this.esPunto === false && this.operacionEntrada!=="" && this.lastCharValidacion() === false && this.lastChar !== "."){
+    if(this.esSimbolo === false && this.operacionEntrada!=="" && this.lastCharValidacion() === false && this.lastChar !== "."){
 
       this.esSimbolo=true;
-
+      this.esPunto=false;
       this.operacionEntrada += elemento;
       this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
       this.resultado=eval(this.operacionEntrada);
@@ -51,15 +49,13 @@ export class CalculadoraComponent {
   borrarElemento(){
     if(this.lastCharValidacion()){
       this.esSimbolo=false;
-
+      this.esPunto=true;
     }
     if(this.lastChar ===  "."){
       this.esPunto = false;
-
     }
     this.operacionEntrada = this.operacionEntrada.slice(0, -1);
     this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
-
 
   }
 
