@@ -1,14 +1,17 @@
 <span></span>
 <h1>{{operacionEntrada}}</h1>
   <div class="cabecera">
-    <button (click)="borrarTodo()" class="C" > C </button>
-    <button (click)="borrarElemento()" class="X"> X </button>
+
   </div>
 
   <div class="grillo">
-    <button (click)="ingresarNumero('9')" > % </button>
-    <button (click)="ingresarNumero('')" > ^ </button>
-    <button (click)="ingresarNumero('')" > # </button>
+    <button (click)="borrarTodo()" class="C" > C </button>
+    <button (click)="borrarElemento()" class="X"> X </button>
+    <button (click)="ingresarParentesis('(')" > ( </button>
+    <button (click)="ingresarParentesis(')')" > ) </button>
+    <button (click)="ingresarNumero('%')" > % </button>
+    <button (click)="ingresarNumero('^')" > ^ </button>
+    <button (click)="ingresarNumero('√')" > √ </button>
     <button (click)="ingresarSimbolo('/')" > / </button>
     <button (click)="ingresarNumero('7')" > 7 </button>
     <button (click)="ingresarNumero('8')" > 8 </button>
@@ -24,10 +27,13 @@
     <button (click)="ingresarSimbolo('+')" > + </button>
     <button (click)="ingresarNumero('0')" > 0 </button>
     <button (click)="ingresarPunto('.')" > . </button>
-    <button (click)="ingresarNumero('')" > () </button>
-    <button (click)="igual()" > = </button>
+    <button class="grillo-item" (click)="igual()" > = </button>
+
     <audio #ref src="./assets/nastypaty.mp3"></audio>
     <button (click)="ref.play()">💩</button>
+
+
+
 
 
 </div>

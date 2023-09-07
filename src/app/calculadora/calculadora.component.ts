@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component } from '@angular/core';
+import * as math from 'mathjs';
 
 @Component({
   selector: 'app-calculadora',
@@ -14,53 +15,70 @@ export class CalculadoraComponent {
   resultado:number = 0;
   esSimbolo:boolean = false;
   esPunto:boolean = false;
+  contadorParentesis = 0;
+
 
   ingresarPunto(elemento:string){
 
     if(this.esPunto===false){
       this.esPunto=true;
-      this.operacionEntrada += elemento;
-      this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
-      this.resultado=eval(this.operacionEntrada);
-    }
 
+      this.operacionEntrada += elemento;
+      this.actualizarLastChar();
+      this.resultado= math.evaluate(this.operacionEntrada);(this.operacionEntrada);
+    }
   }
 
   ingresarSimbolo(elemento:string){
 
-    if(this.esSimbolo === false && this.operacionEntrada!=="" && this.lastCharValidacion() === false && this.lastChar !== "."){
+    if(this.esSimbolo === false && this.operacionEntrada!=="" && this.lastCharValidacion() === false){
 
       this.esSimbolo=true;
       this.esPunto=false;
       this.operacionEntrada += elemento;
-      this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
-      this.resultado=eval(this.operacionEntrada);
+      this.actualizarLastChar();
+      this.resultado= math.evaluate(this.operacionEntrada);(this.operacionEntrada);
+
 
     }
   }
 
+  ingresarParentesis(elemento:string){
+
+  }
+
+  parentesisValidacion(){
+
+  }
+
   ingresarNumero(elemento:string) {
     this.operacionEntrada += elemento;
-    this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
-    this.resultado=eval(this.operacionEntrada);
+    this.actualizarLastChar();
+    this.resultado= math.evaluate(this.operacionEntrada);
     this.esSimbolo=false;
   }
 
   borrarElemento(){
     if(this.lastCharValidacion()){
       this.esSimbolo=false;
-      this.esPunto=true;
+
+      if(this.puntoValidacion()){ // NO FUNCIONA, NO SE PQ EJEJAJJAAA
+        this.esPunto=true; // IMPORTANTE, esto cambia dependiendo de si en el string existe un "."
+      } else{
+        this.esPunto=false;
+      }
     }
+
     if(this.lastChar ===  "."){
       this.esPunto = false;
-    }
-    this.operacionEntrada = this.operacionEntrada.slice(0, -1);
-    this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
+    } // indexar a  validacion de escanear string
 
+    this.operacionEntrada = this.operacionEntrada.slice(0, -1);
+    this.actualizarLastChar();
   }
 
   igual(){
-    this.resultado=eval(this.operacionEntrada);
+    this.resultado= math.evaluate(this.operacionEntrada);(this.operacionEntrada);
     this.resultados.push(this.resultado);
 
   }
@@ -71,13 +89,30 @@ export class CalculadoraComponent {
       return false;
     }
   }
+
+  puntoValidacion(){
+  let flag= false;
+
+  for(let i=0; i < this.operacionEntrada.length; i++){
+      if(this.operacionEntrada[i] === "."){
+        i=this.operacionEntrada.length;
+        flag=true;
+      }
+    }
+    return flag;
+  }
+
   borrarTodo(){
     this.esSimbolo=false;
     this.esPunto=false;
     this.operacionEntrada = "";
   }
 
-/* Si no existiese eval() yo lo que haria seria un sistema que recorra el string y cuando se tope con un operador analice si es un * / o un suma y resta.
+  actualizarLastChar(){
+    this.lastChar = this.operacionEntrada[this.operacionEntrada.length-1];
+  }
+
+/* Si no existiese= math.evaluate(this.operacionEntrada);() yo lo que haria seria un sistema que recorra el string y cuando se tope con un operador analice si es un * / o un suma y resta.
 Una vez se encuentre con x simbolo, guardaria todo lo anterior al simbolo en un array de elementos.Si fuese multiplicacion o division , multiplicaria o
 dividiria el elemento guardado dentro del array con el elemento a la derecha del simbolo. Seguiria acumulandose eso en la posicion 0 del array hasta
 que se encuentre una suma o resta. En este caso crearia un elemento que me permita guardar el orden de las operaciones de suma y resta. Asi saber
